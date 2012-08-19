@@ -99,7 +99,7 @@
           time_format = "HH:mm";
 
       $.getJSON("http://www.google.com/calendar/feeds/"+ calendar_name + 
-        "/public/full?orderby=starttime&sortorder=ascending&futureevents=true&alt=json", function(data) {
+        "/public/full?orderby=starttime&sortorder=ascending&futureevents=true&alt=json&max-results=50", function(data) {
           var former_date,
               $target = $('#calendar');
 
