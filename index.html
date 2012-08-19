@@ -1,7 +1,7 @@
 ---
 layout: simple
 title: OTSCamp on CampusPartyEU
-
+calendar: i7mub9occb41i9193rob6g4lus@group.calendar.google.com
 ---
 
 
@@ -52,85 +52,6 @@ title: OTSCamp on CampusPartyEU
   </div>
 </section>
 
-
-  <footer>
-    <div class="container">
-
-      <p>
-        © 2011-2012 by <a href="http://www.opentechschool.org">OpenTechSchool</a><!-- &nbsp;&nbsp;||&nbsp;&nbsp;<a href="/imprint.html">Imprint</a> -->
-      </p>
-
-    </div>
-    </footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-  <script src="https://raw.github.com/timrwood/moment/1.7.0/min/moment.min.js"></script>
-
-  <!--[if lt IE 7 ]>
-    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-  <![endif]-->
-
-  <script type="text/javascript">
-
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-33344154-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-
-  </script>
-  <script>
-    $(function() {
-      var listing = $('nav ul');
-      $("h2").each(function(){
-        var $this = $(this);
-        var id = $this.attr("id");
-        if (id) {
-          listing.append($('<li></li>').html($('<a></a>').attr("href",
-          "#" + id).html($this.html())));
-        }
-
-      });
-      var calendar_name = 'i7mub9occb41i9193rob6g4lus@group.calendar.google.com',
-          // see http://momentjs.com/docs/#/displaying/format/
-          date_format = "ddd, MMMM Do YYYY",
-          time_format = "HH:mm";
-
-      $.getJSON("http://www.google.com/calendar/feeds/"+ calendar_name + 
-        "/public/full?orderby=starttime&sortorder=ascending&futureevents=true&alt=json", function(data) {
-          var former_date,
-              $target = $('#calendar')
-          ;
-          $.each(data.feed.entry, function(idx, item) {
-            var when = moment(item.gd$when[0].startTime),
-                formatted_date = when.format("M-D-YY"),
-                where = item.gd$where[0].valueString,
-                title = item.title.$t;
-
-            if (title.indexOf("Keynote") === 0 ) {
-              // skip keynote entries pls
-              return;
-            }
-
-
-            if (formatted_date !== former_date) {
-              $target.append("<hr/> <h3>" + when.format(date_format) + "</h3> <br />");
-            }
-
-            $target.append('<h4><a href="' + item.link[0].href +'">' + item.title.$t + '</a></h4>' + 
-              "<p>" + when.format(time_format) + (where ? ' // ' + where : '')  + "</p>" +
-              "<p>" + item.content.$t + "</p>"
-            );
-            former_date = formatted_date;
-          });
-      })
-    });
-  </script>
 </body>
 </html>
 

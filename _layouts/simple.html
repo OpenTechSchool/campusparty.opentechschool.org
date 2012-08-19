@@ -53,7 +53,7 @@
       </h1>
 
 
-      {% if site.no_nav != false %} 
+      {% if page.no_nav != false %} 
         <nav>
           <ul class="nav_list">
           </ul>
@@ -87,6 +87,49 @@
     <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
   <![endif]-->
 
+{% if page.calendar %} 
+  <script src="https://raw.github.com/timrwood/moment/1.7.0/min/moment.min.js"></script>
+
+  <script>
+    $(function() {
+
+      var calendar_name = '{{page.calendar}}',
+          // see http://momentjs.com/docs/#/displaying/format/
+          date_format = "ddd, MMMM Do YYYY",
+          time_format = "HH:mm";
+
+      $.getJSON("http://www.google.com/calendar/feeds/"+ calendar_name + 
+        "/public/full?orderby=starttime&sortorder=ascending&futureevents=true&alt=json", function(data) {
+          var former_date,
+              $target = $('#calendar');
+
+          $.each(data.feed.entry, function(idx, item) {
+            var when = moment(item.gd$when[0].startTime),
+                formatted_date = when.format("M-D-YY"),
+                where = item.gd$where[0].valueString,
+                title = item.title.$t;
+
+            if (title.indexOf("Keynote") === 0 ) {
+              // skip keynote entries pls
+              return;
+            }
+
+
+            if (formatted_date !== former_date) {
+              $target.append("<hr/> <h3>" + when.format(date_format) + "</h3> <br />");
+            }
+
+            $target.append('<h4><a href="' + item.link[0].href +'">' + item.title.$t + '</a></h4>' + 
+              "<p>" + when.format(time_format) + (where ? ' // ' + where : '')  + "</p>" +
+              "<p>" + item.content.$t + "</p>"
+            );
+            former_date = formatted_date;
+          });
+      })
+    });
+  </script>
+{% endif %}
+
   <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -114,6 +157,8 @@
       });
     });
   </script>
+
+
 </body>
 </html>
 
