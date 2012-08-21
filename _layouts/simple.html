@@ -120,9 +120,29 @@
             }
 
             $target.append('<h4><a href="' + item.link[0].href +'">' + item.title.$t + '</a></h4>' + 
-              "<p>" + when.format(time_format) + (where ? ' // ' + where : '')  + "</p>" +
-              "<p>" + item.content.$t + "</p>"
+              "<p>" + when.format(time_format) + (where ? ' // ' + where : '')  + "</p>"
             );
+            var wrap = $("<div>");
+            var content = $(item.content.$t);
+            if (content.children().length > 1) {
+              wrap.append(content.first());
+              content = $('<div>').html(content.slice(1));
+              content.hide();
+              wrap.append(content);
+              var more = $('<a class="showmore">more</a>');
+              more.toggle(function() {
+                content.slideDown();
+                $(this).html("less");
+              },function() {
+                content.slideUp();
+                $(this).html("more").show();
+              });
+              wrap.append(more);
+              wrap.append("<p></p>");
+              $target.append(wrap);
+            } else {
+              $target.append(content);
+            }
             former_date = formatted_date;
           });
       })
