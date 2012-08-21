@@ -225,7 +225,6 @@ h2 span {
   
 }
 
-
 footer,
 .meta_nav {
   height: 24px;
@@ -394,10 +393,15 @@ footer a:focus {
 
 @media handheld, only screen and (max-width: 440px) {
 
+  .meta_nav_social,
+  .meta_nav_logo;
   .float_list li.member {
     float: none;
   }
-
+  
+  .meta_nav {
+    height: 4.5em;
+  }
 }
   
 
