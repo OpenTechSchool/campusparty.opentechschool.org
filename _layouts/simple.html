@@ -52,12 +52,13 @@
     $(function() {
 
       var calendar_name = '{{page.calendar}}',
+          onlyFutureDates = {{page.onlyFutureDates}},
           // see http://momentjs.com/docs/#/displaying/format/
           date_format = "ddd, MMMM Do YYYY",
           time_format = "HH:mm";
 
       $.getJSON("http://www.google.com/calendar/feeds/"+ calendar_name + 
-        "/public/full?orderby=starttime&sortorder=ascending&futureevents=true&alt=json&max-results=50", function(data) {
+        "/public/full?orderby=starttime&sortorder=ascending&futureevents="+ onlyFutureDates +"&alt=json&max-results=50", function(data) {
           var former_date,
               $target = $('#calendar');
 
